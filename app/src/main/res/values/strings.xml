@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">KleiderschrankApp</string>
+    <string name="action_search">Suche</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="one">Hello World Fragment 1</string>
 </resources>
