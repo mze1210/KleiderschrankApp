@@ -1,28 +1,27 @@
-package com.example.gruppe1.kleiderschrankapp;
+package com.example.gruppe1.kleiderschrankapp.activities;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.gruppe1.kleiderschrankapp.R;
+import com.example.gruppe1.kleiderschrankapp.fragments.FragmentKlamotte;
+import com.example.gruppe1.kleiderschrankapp.fragments.FragmentKleiderschrank;
+import com.example.gruppe1.kleiderschrankapp.fragments.FragmentOutfit;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "ONE");
+        adapter.addFragment(new FragmentKleiderschrank(), "Kleiderschrank");
+        adapter.addFragment(new FragmentKlamotte(), "Klamotten");
+        adapter.addFragment(new FragmentOutfit(), "Outfits");
         viewPager.setAdapter(adapter);
     }
 
@@ -75,5 +76,4 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
 }
