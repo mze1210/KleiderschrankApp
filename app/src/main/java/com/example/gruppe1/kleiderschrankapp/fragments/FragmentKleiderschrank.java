@@ -88,4 +88,6 @@ public class FragmentKleiderschrank extends Fragment {
         kleiderschrankList.setAdapter(adapter);
     }
 
+
+
 }
