@@ -18,40 +18,46 @@ import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
 
 public class KleiderschrankDBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "kleiderschrankapp.db";
 
     private static final String SQL_CREATE_TABLE_KLEIDERSCHRANK =
             "CREATE TABLE " + KleiderschrankEntry.TABLE_NAME + " (" +
-                    KleiderschrankEntry._ID + " INTEGER PRIMARY KEY," +
-                    KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG + " TEXT," +
+                    KleiderschrankEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG + " TEXT " +
                     ");";
 
     public static final String SQL_CREATE_TABLE_KATEGORIE =
-            "CREATE TABLE " + KleiderschrankEntry.TABLE_NAME + " (" +
-                    DatabaseSchema.KategorieEntry._ID + " INTEGER PRIMARY KEY," +
-                    KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG + " TEXT," +
+            "CREATE TABLE " + KategorieEntry.TABLE_NAME + " (" +
+                    KategorieEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    KategorieEntry.COLUMN_NAME_BEZEICHNUNG + " TEXT " +
                     ");";
 
-    private static final String SQL_CREATE_TABLE_KLAMOTTET =
+    private static final String SQL_CREATE_TABLE_KLAMOTTE =
             "CREATE TABLE " + KlamotteEntry.TABLE_NAME + " (" +
-                    KlamotteEntry._ID + " INTEGER PRIMARY KEY," +
+                    KlamotteEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     KlamotteEntry.COLUMN_NAME_KLEIDERSCHRANK_FK + " TEXT," +
-                    KlamotteEntry.COLUMN_NAME_KATEGORIE_FK + " TEXT," +
+                    KlamotteEntry.COLUMN_NAME_KATEGORIE_FK + " TEXT " +
+                    ")" +
                     "FOREIGN KEY(" + KlamotteEntry.COLUMN_NAME_KLEIDERSCHRANK_FK + ") REFERENCES " + KleiderschrankEntry.TABLE_NAME + "(" + KleiderschrankEntry._ID + ")" +
                     "FOREIGN KEY(" + KlamotteEntry.COLUMN_NAME_KATEGORIE_FK + ") REFERENCES " + DatabaseSchema.KategorieEntry.TABLE_NAME + "(" + DatabaseSchema.KategorieEntry._ID + ")" +
                     ")";
 
     private static final String SQL_DROP_TABLE_KLEIDERSCHRANK = "DROP TABLE IF EXISTS " + KleiderschrankEntry.TABLE_NAME + ";";
     private static final String SQL_DROP_TABLE_KATEGORIE = "DROP TABLE IF EXISTS " + KategorieEntry.TABLE_NAME + ";";
-    private static final String SQL_DROP_TABLE_KLAMOTTE= "DROP TABLE IF EXISTS " +KlamotteEntry.TABLE_NAME + ";";
+    private static final String SQL_DROP_TABLE_KLAMOTTE = "DROP TABLE IF EXISTS " + KlamotteEntry.TABLE_NAME + ";";
 
     private static KleiderschrankDBHelper instance = null;
     private Context ctx;
 
     private KleiderschrankDBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, KleiderschrankEntry.TABLE_NAME, null, DATABASE_VERSION);
         this.ctx = context;
+    }
+
+    public KleiderschrankDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, KleiderschrankEntry.TABLE_NAME, factory, DATABASE_VERSION);
+        this.ctx = ctx;
     }
 
     public static KleiderschrankDBHelper getInstance(Context ctx) {
@@ -61,44 +67,74 @@ public class KleiderschrankDBHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    public Cursor findAllKleiderschrank(){
+    public Cursor findAllKleiderschrank() {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         String sortOrder = KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG + " ASC";
         qb.setTables(KleiderschrankEntry.TABLE_NAME);
         return qb.query(getReadableDatabase(), null, null, null, null, null, sortOrder);
     }
 
-    public Kleiderschrank insertContact(Kleiderschrank kleiderschrank) {
-        ContentValues values = getAddressValues(kleiderschrank);
-
-        long id = getWritableDatabase().insert(KleiderschrankEntry.TABLE_NAME, null, values);
-        if (id == -1) {
-            return null;
-        }
-        kleiderschrank.setId(id);
-        return kleiderschrank;
-    }
-
-    /**
-     * Helper method which creates ContentValues for Kleiderschrank
-     *
-     * @param kleiderschrank Kleiderschrank
-     * @return ContentValues including all database columns
-     */
-    private ContentValues getAddressValues(Kleiderschrank kleiderschrank) {
+    public void insertKleiderschrank(Kleiderschrank kleiderschrank) {
         ContentValues values = new ContentValues();
+
         values.put(KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG, kleiderschrank.getBezeichnung());
-        return values;
+
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.insert(KleiderschrankEntry.TABLE_NAME, null, values);
+        sqLiteDatabase.close();
+
     }
 
+    public void deleteKleiderschrank(Kleiderschrank kleiderschrank) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        sqLiteDatabase.execSQL("DELETE FROM " + KleiderschrankEntry.TABLE_NAME + " WHERE " + KleiderschrankEntry._ID + " =\" " + kleiderschrank.getId() + ";");
+    }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        String query = SQL_CREATE_TABLE_KLEIDERSCHRANK;
+        sqLiteDatabase.execSQL(query);
 
+//        query = SQL_CREATE_TABLE_KLAMOTTE;
+//        sqLiteDatabase.execSQL(query);
+//
+//        query = SQL_CREATE_TABLE_KATEGORIE;
+//        sqLiteDatabase.execSQL(query);
+
+    }
+
+    public String databaseToString() {
+        String dbString = "";
+
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        String query = "SELECT * FROM " + KleiderschrankEntry.TABLE_NAME + " WHERE 1";
+
+        //Cursor point to a location of your results
+        Cursor c = sqLiteDatabase.rawQuery(query, null);
+
+        //Move to the first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex(KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG)) != null) {
+                dbString += c.getString(c.getColumnIndex(KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG));
+                dbString += "\n";
+            }
+            c.moveToNext();
+        }
+
+        sqLiteDatabase.close();
+
+        return dbString;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL(SQL_DROP_TABLE_KLEIDERSCHRANK);
+        sqLiteDatabase.execSQL(SQL_DROP_TABLE_KLAMOTTE);
+        sqLiteDatabase.execSQL(SQL_DROP_TABLE_KATEGORIE);
+        onCreate(sqLiteDatabase);
     }
 }

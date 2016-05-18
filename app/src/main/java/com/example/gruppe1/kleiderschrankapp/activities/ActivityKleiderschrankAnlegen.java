@@ -1,6 +1,7 @@
 package com.example.gruppe1.kleiderschrankapp.activities;
 
 import com.example.gruppe1.kleiderschrankapp.R;
+import com.example.gruppe1.kleiderschrankapp.dao.KleiderschrankDBHelper;
 import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
 
 import android.content.Context;
@@ -30,9 +31,15 @@ public class ActivityKleiderschrankAnlegen extends AppCompatActivity {
     }
 
     public void saveKleiderschrank() {
-
         Kleiderschrank kleiderschrank = new Kleiderschrank();
         kleiderschrank.setBezeichnung(getStringValue(R.id.bezeichnungEditText));
+
+        KleiderschrankDBHelper dbHelper = new KleiderschrankDBHelper(this, null, null, 6);
+        dbHelper.insertKleiderschrank(kleiderschrank);
+        CharSequence text = dbHelper.databaseToString();
+
+        Toast.makeText(getBaseContext(), text, Toast.LENGTH_LONG).show();
+
     }
 
 
