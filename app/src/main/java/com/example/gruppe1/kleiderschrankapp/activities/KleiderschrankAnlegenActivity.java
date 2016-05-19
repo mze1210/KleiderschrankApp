@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActivityKleiderschrankAnlegen extends AppCompatActivity {
+public class KleiderschrankAnlegenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,34 +1,27 @@
 package com.example.gruppe1.kleiderschrankapp.fragments;
 
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.example.gruppe1.kleiderschrankapp.R;
-import com.example.gruppe1.kleiderschrankapp.activities.ActivityKleiderschrankAnlegen;
+import com.example.gruppe1.kleiderschrankapp.activities.KleiderschrankAnlegenActivity;
 import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema.KleiderschrankEntry;
 import com.example.gruppe1.kleiderschrankapp.dao.KleiderschrankDBHelper;
-import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
 
 
-public class FragmentKleiderschrank extends Fragment {
+public class KleiderschrankButtonFragment extends Fragment {
 
     private static final int SQLITE_LOADER = 0;
 
@@ -37,7 +30,7 @@ public class FragmentKleiderschrank extends Fragment {
     private SearchView searchField;
     private int backButtonCount = 0;
 
-    public FragmentKleiderschrank() {
+    public KleiderschrankButtonFragment() {
         // Required empty public constructor
     }
 
@@ -45,7 +38,7 @@ public class FragmentKleiderschrank extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initAdapter();
+//        initAdapter();
     }
 
     @Override
@@ -62,7 +55,7 @@ public class FragmentKleiderschrank extends Fragment {
              */
             @Override
             public void onClick(View v) {
-                Intent createIntent = new Intent(getActivity(), ActivityKleiderschrankAnlegen.class);
+                Intent createIntent = new Intent(getActivity(), KleiderschrankAnlegenActivity.class);
                 startActivity(createIntent);
             }
         });
@@ -75,10 +68,10 @@ public class FragmentKleiderschrank extends Fragment {
      * Used to initialize the CursorAdapter and layout of the ListView
      */
     private void initAdapter() {
-        String[] fromColumns = {KleiderschrankEntry.COLUMN_NAME_ID, KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG};
-        int[] toViews = {android.R.id.text1, android.R.id.text2};
-        adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_2, null, fromColumns, toViews, 0);
-        kleiderschrankList = (ListView) getActivity().findViewById(R.id.KleiderschrankList);
+//        String[] fromColumns = {KleiderschrankEntry.COLUMN_NAME_ID, KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG};
+//        int[] toViews = {android.R.id.text1, android.R.id.text2};
+//        adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_2, null, fromColumns, toViews, 0);
+//        kleiderschrankList = (ListView) getActivity().findViewById(R.id.KleiderschrankList);
         //TODO
 //        kleiderschrankList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
