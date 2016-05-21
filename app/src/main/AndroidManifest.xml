@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.KleiderschrankAnlegenActivity"></activity>
+        <activity android:name=".activities.KleiderschrankAnlegenActivity" />
+        <activity android:name=".activities.KlamotteAnlegenActivity"></activity>
     </application>
 
 </manifest>

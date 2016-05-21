@@ -53,17 +53,18 @@ public class MainActivity extends AppCompatActivity {
         int currentId = viewPager.getCurrentItem();
 
         //Id 0 = kleiderschrankFragment
+        //Id 1 = klamotteFragment
+        //Id 2 = outfitFragment
         if (currentId == 0) {
             Intent createIntent = new Intent(this, KleiderschrankAnlegenActivity.class);
             startActivity(createIntent);
-        }else
-        if (currentId == 1){
+        } else if (currentId == 1) {
             Toast.makeText(getBaseContext(), "Klamotte anlegen", Toast.LENGTH_SHORT).show();
-        }else
-        if (currentId == 2){
+            Intent createIntent = new Intent(this, KlamotteAnlegenActivity.class);
+            startActivity(createIntent);
+        } else if (currentId == 2) {
             Toast.makeText(getBaseContext(), "Outfit anlegen", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(getBaseContext(), "Funktionalität noch nicht verfügbar", Toast.LENGTH_SHORT).show();
         }
 

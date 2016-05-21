@@ -1,5 +1,7 @@
 package com.example.gruppe1.kleiderschrankapp.model;
 
+import android.net.Uri;
+
 /**
  * Created by Furkan on 17.05.2016.
  */
@@ -9,8 +11,10 @@ public class Klamotte {
     private String bezeichnung;
     private String kategorie;
 
+    private Uri image;
 
-    public Klamotte(){
+
+    public Klamotte() {
 
     }
 
@@ -38,4 +42,8 @@ public class Klamotte {
     public void setKategorie(String kategorie) {
         this.kategorie = kategorie;
     }
+
+    public Uri getImage() { return image; }
+
+    public void setImage(Uri image) { this.image = image; }
 }
