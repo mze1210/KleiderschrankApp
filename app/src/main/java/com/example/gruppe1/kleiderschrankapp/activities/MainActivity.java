@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +48,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void KleiderschrankAnlegen(View view){
-        Intent createIntent = new Intent(this, KleiderschrankAnlegenActivity.class);
-        startActivity(createIntent);
+    public void KleiderschrankAnlegen(View view) {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        int currentId = viewPager.getCurrentItem();
 
+        //Id 0 = kleiderschrankFragment
+        if (currentId == 0) {
+            Intent createIntent = new Intent(this, KleiderschrankAnlegenActivity.class);
+            startActivity(createIntent);
+        }else
+        if (currentId == 1){
+            Toast.makeText(getBaseContext(), "Klamotte anlegen", Toast.LENGTH_SHORT).show();
+        }else
+        if (currentId == 2){
+            Toast.makeText(getBaseContext(), "Outfit anlegen", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getBaseContext(), "Funktionalität noch nicht verfügbar", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
