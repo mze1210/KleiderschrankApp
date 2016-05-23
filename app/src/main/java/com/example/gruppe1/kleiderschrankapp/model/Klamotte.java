@@ -9,7 +9,7 @@ public class Klamotte {
 
     private long id;
     private String bezeichnung;
-    private String kategorie;
+    private Kategorie kategorie;
 
     private Uri image;
 
@@ -18,7 +18,7 @@ public class Klamotte {
 
     }
 
-    public Klamotte(String bezeichnung, String kategorie) {
+    public Klamotte(String bezeichnung, Kategorie kategorie) {
         this.bezeichnung = bezeichnung;
         this.kategorie = kategorie;
     }
@@ -35,15 +35,24 @@ public class Klamotte {
         this.bezeichnung = bezeichnung;
     }
 
-    public String getKategorie() {
+    public Kategorie getKategorie() {
         return kategorie;
     }
 
-    public void setKategorie(String kategorie) {
+    public void setKategorie(Kategorie kategorie) {
         this.kategorie = kategorie;
     }
 
     public Uri getImage() { return image; }
 
     public void setImage(Uri image) { this.image = image; }
+
+    @Override
+    public String toString() {
+        return "Klamotte{" +
+                "id=" + id +
+                ", bezeichnung='" + bezeichnung + '\'' +
+                ", kategorie='" + kategorie + '\'' +
+                '}';
+    }
 }

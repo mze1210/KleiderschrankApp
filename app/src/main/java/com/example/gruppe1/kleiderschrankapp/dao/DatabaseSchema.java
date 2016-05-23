@@ -33,6 +33,9 @@ public final class DatabaseSchema {
         public static final String COLUMN_NAME_KATEGORIE_FK = "kategorie_fk";
     }
 
+    /**
+     * Defines the columns for kategorie table
+     */
     public static abstract class KategorieEntry implements BaseColumns {
         public static final String COLUMN_NAME_ID = "ID";
         public static final String TABLE_NAME = "kategorie";

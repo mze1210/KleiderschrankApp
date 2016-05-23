@@ -9,6 +9,8 @@ public class Kleiderschrank {
     private long id;
     private String bezeichnung;
 
+
+
     public Kleiderschrank() {
 
     }
@@ -32,4 +34,13 @@ public class Kleiderschrank {
     public long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Kleiderschrank{" +
+                "id=" + id +
+                ", bezeichnung='" + bezeichnung + '\'' +
+                '}';
+    }
+
 }
