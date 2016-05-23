@@ -1,7 +1,5 @@
 package com.example.gruppe1.kleiderschrankapp.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,17 +9,10 @@ import android.view.ViewGroup;
 import com.example.gruppe1.kleiderschrankapp.R;
 import com.google.android.gms.plus.PlusOneButton;
 
-/**
- * A fragment with a Google +1 button.
- * Activities that contain this fragment must implement the
- * {@link FragmentKlamotte.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentKlamotte#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentKlamotte extends Fragment{
 
-    public FragmentKlamotte() {
+public class KlamotteFragment extends Fragment{
+
+    public KlamotteFragment() {
         // Required empty public constructor
     }
 

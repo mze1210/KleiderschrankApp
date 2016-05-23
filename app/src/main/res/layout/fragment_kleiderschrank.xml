@@ -1,21 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragments.FragmentKleiderschrank">
+    android:fitsSystemWindows="true"
+    tools:context=".activities.MainActivity"
+    android:id="@+id/kleiderschrankFragment">
 
-    <!--<com.google.android.gms.plus.PlusOneButton xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"-->
-        <!--android:id="@+id/plus_one_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--plus:annotation="inline"-->
-        <!--plus:size="standard" />-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/one"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"/>
+   <ListView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/kleiderschrankListView"></ListView>
 
-</FrameLayout>
+</RelativeLayout>
