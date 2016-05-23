@@ -18,7 +18,6 @@ import java.util.List;
 
 import com.example.gruppe1.kleiderschrankapp.R;
 import com.example.gruppe1.kleiderschrankapp.fragments.KlamotteFragment;
-import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankButtonFragment;
 import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankFragment;
 import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankList;
 import com.example.gruppe1.kleiderschrankapp.fragments.OutfitFragment;
