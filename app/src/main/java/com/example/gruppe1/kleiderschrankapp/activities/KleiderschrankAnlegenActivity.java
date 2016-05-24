@@ -34,7 +34,7 @@ public class KleiderschrankAnlegenActivity extends AppCompatActivity {
         Kleiderschrank kleiderschrank = new Kleiderschrank();
         kleiderschrank.setBezeichnung(getStringValue(R.id.bezeichnungEditText));
 
-        KleiderschrankDBHelper dbHelper = new KleiderschrankDBHelper(this, null, null, 6);
+        KleiderschrankDBHelper dbHelper = KleiderschrankDBHelper.getInstance(KleiderschrankAnlegenActivity.this);
         dbHelper.insertKleiderschrank(kleiderschrank);
         CharSequence text = dbHelper.databaseToString();
 

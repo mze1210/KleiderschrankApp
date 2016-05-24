@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -17,9 +18,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.gruppe1.kleiderschrankapp.R;
+import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema;
+import com.example.gruppe1.kleiderschrankapp.dao.KleiderschrankDBHelper;
 import com.example.gruppe1.kleiderschrankapp.model.Klamotte;
 
 import java.io.File;
@@ -45,11 +50,26 @@ public class KlamotteAnlegenActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CHOOSE = 2;
 
     private Klamotte klamotte = new Klamotte();
+    private SimpleCursorAdapter adapter;
+    private Spinner kategorieSpinner;
+//    private KleiderschrankDBHelper dbhelper = KleiderschrankDBHelper.getInstance(KlamotteAnlegenActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_klamotte_anlegen);
+
+        String[] fromColumns = {DatabaseSchema.KategorieEntry.COLUMN_NAME_BEZEICHNUNG};
+        int[] toViews = {android.R.id.text1};
+
+        Cursor kategorieCursor = KleiderschrankDBHelper.getInstance(KlamotteAnlegenActivity.this).findAllKategorie();
+
+        adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, kategorieCursor, fromColumns, toViews, 0);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        kategorieSpinner = (Spinner) findViewById(R.id.kategorieSpinner);
+
+        kategorieSpinner.setAdapter(adapter);
 
         Button cameraButton = (Button) findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +84,7 @@ public class KlamotteAnlegenActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Starts Intent to choose existing image from gallery
@@ -162,13 +183,18 @@ public class KlamotteAnlegenActivity extends AppCompatActivity {
         }
         if (view.getId() == R.id.saveButton) {
             //TODO
-//            saveKlamotte();
+            saveKlamotte();
             Intent listIntent = new Intent(this, MainActivity.class);
             startActivity(listIntent);
             text = "Abgespeichert";
         }
         toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    private void saveKlamotte() {
+        Klamotte klamotte = new Klamotte();
+
     }
 
     /**

@@ -16,7 +16,7 @@ import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
 import com.google.android.gms.plus.PlusOneButton;
 
 
-public class KlamotteListFragment extends ListFragment{
+public class KlamotteListFragment extends ListFragment {
 
     public KlamotteListFragment() {
         // Required empty public constructor
@@ -33,12 +33,17 @@ public class KlamotteListFragment extends ListFragment{
         Klamotte k5 = new Klamotte();
         Klamotte k6 = new Klamotte();
 
-        k1.setBezeichnung("Klamotte 1");
-        k2.setBezeichnung("Klamotte 2");
-        k3.setBezeichnung("Klamotte 3");
-        k4.setBezeichnung("Klamotte 4");
-        k5.setBezeichnung("Klamotte 5");
-        k6.setBezeichnung("Klamotte 6");
+        Kleiderschrank kl1 = new Kleiderschrank();
+        kl1.setBezeichnung("Zuhause");
+        Kleiderschrank kl2 = new Kleiderschrank();
+        kl2.setBezeichnung("Wohnheim");
+
+        k1.setKleiderschrank(kl1);
+        k2.setKleiderschrank(kl2);
+        k3.setKleiderschrank(kl1);
+        k4.setKleiderschrank(kl2);
+        k5.setKleiderschrank(kl1);
+        k6.setKleiderschrank(kl2);
 
         Kategorie kat1 = new Kategorie();
         kat1.setBezeichnung("Hose");
@@ -53,7 +58,7 @@ public class KlamotteListFragment extends ListFragment{
         k5.setKategorie(kat1);
         k6.setKategorie(kat2);
 
-        Klamotte[] values = new Klamotte[] {k1, k2, k3, k4, k5, k6};
+        Klamotte[] values = new Klamotte[]{k1, k2, k3, k4, k5, k6};
 
 
         ArrayAdapter<Klamotte> adapter = new ArrayAdapter<Klamotte>(getActivity(), android.R.layout.simple_list_item_1, values);
