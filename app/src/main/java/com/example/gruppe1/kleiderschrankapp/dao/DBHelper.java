@@ -18,7 +18,7 @@ import com.example.gruppe1.kleiderschrankapp.model.Klamotte;
 import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
 
 
-public class KleiderschrankDBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "kleiderschrankapp.db";
@@ -50,10 +50,10 @@ public class KleiderschrankDBHelper extends SQLiteOpenHelper {
     private static final String SQL_DROP_TABLE_KATEGORIE = "DROP TABLE IF EXISTS " + KategorieEntry.TABLE_NAME + ";";
     private static final String SQL_DROP_TABLE_KLAMOTTE = "DROP TABLE IF EXISTS " + KlamotteEntry.TABLE_NAME + ";";
 
-    private static KleiderschrankDBHelper instance = null;
+    private static DBHelper instance = null;
     private Context ctx;
 
-    private KleiderschrankDBHelper(Context context) {
+    private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.ctx = context;
     }
@@ -63,9 +63,9 @@ public class KleiderschrankDBHelper extends SQLiteOpenHelper {
 //        this.ctx = ctx;
 //    }
 
-    public static KleiderschrankDBHelper getInstance(Context ctx) {
+    public static DBHelper getInstance(Context ctx) {
         if (instance == null) {
-            return new KleiderschrankDBHelper(ctx.getApplicationContext());
+            return new DBHelper(ctx.getApplicationContext());
         }
         return instance;
     }

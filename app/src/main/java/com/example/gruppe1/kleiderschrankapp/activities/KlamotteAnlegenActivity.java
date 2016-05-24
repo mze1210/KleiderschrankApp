@@ -23,8 +23,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.gruppe1.kleiderschrankapp.R;
+import com.example.gruppe1.kleiderschrankapp.dao.DBHelper;
 import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema;
-import com.example.gruppe1.kleiderschrankapp.dao.KleiderschrankDBHelper;
 import com.example.gruppe1.kleiderschrankapp.model.Klamotte;
 
 import java.io.File;
@@ -50,26 +50,34 @@ public class KlamotteAnlegenActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CHOOSE = 2;
 
     private Klamotte klamotte = new Klamotte();
-    private SimpleCursorAdapter adapter;
+    private SimpleCursorAdapter kategorieAdapter;
+    private SimpleCursorAdapter kleiderschrankAdapter;
     private Spinner kategorieSpinner;
-//    private KleiderschrankDBHelper dbhelper = KleiderschrankDBHelper.getInstance(KlamotteAnlegenActivity.this);
+    private Spinner kleiderschrankSpinner;
+//    private DBHelper dbhelper = DBHelper.getInstance(KlamotteAnlegenActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_klamotte_anlegen);
 
-        String[] fromColumns = {DatabaseSchema.KategorieEntry.COLUMN_NAME_BEZEICHNUNG};
-        int[] toViews = {android.R.id.text1};
-
-        Cursor kategorieCursor = KleiderschrankDBHelper.getInstance(KlamotteAnlegenActivity.this).findAllKategorie();
-
-        adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, kategorieCursor, fromColumns, toViews, 0);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+        //Adapter an Kategorie Spinner
+        String[] fromColumnsKategorie = {DatabaseSchema.KategorieEntry.COLUMN_NAME_BEZEICHNUNG};
+        int[] toViewsKategorie = {android.R.id.text1};
+        Cursor kategorieCursor = DBHelper.getInstance(KlamotteAnlegenActivity.this).findAllKategorie();
+        kategorieAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, kategorieCursor, fromColumnsKategorie, toViewsKategorie, 0);
+        kategorieAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         kategorieSpinner = (Spinner) findViewById(R.id.kategorieSpinner);
+        kategorieSpinner.setAdapter(kategorieAdapter);
 
-        kategorieSpinner.setAdapter(adapter);
+        //Adapter an Kleiderschrank Spinner
+        String[] fromColumnsKleiderschrank = {DatabaseSchema.KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG};
+        int[] toViewsKleiderschrank = {android.R.id.text1};
+        Cursor kleiderschrankCursor = DBHelper.getInstance(KlamotteAnlegenActivity.this).findAllKleiderschrank();
+        kleiderschrankAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, kleiderschrankCursor, fromColumnsKleiderschrank, toViewsKleiderschrank, 0);
+        kleiderschrankAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        kleiderschrankSpinner = (Spinner) findViewById(R.id.kleiderschrankSpinner);
+        kleiderschrankSpinner.setAdapter(kleiderschrankAdapter);
 
         Button cameraButton = (Button) findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {

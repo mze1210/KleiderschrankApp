@@ -65,6 +65,8 @@ public class KlamotteListFragment extends ListFragment {
 
         setListAdapter(adapter);
 
+
+
     }
 
     @Override
