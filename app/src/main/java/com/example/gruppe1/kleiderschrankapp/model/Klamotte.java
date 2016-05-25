@@ -8,42 +8,55 @@ import android.net.Uri;
 public class Klamotte {
 
     private long id;
-    private String bezeichnung;
-    private String kategorie;
-
+    private Kategorie kategorie;
+    private Kleiderschrank kleiderschrank;
     private Uri image;
-
 
     public Klamotte() {
 
     }
 
-    public Klamotte(String bezeichnung, String kategorie) {
-        this.bezeichnung = bezeichnung;
+    public Klamotte(Kategorie kategorie, Kleiderschrank kleiderschrank) {
         this.kategorie = kategorie;
+        this.kleiderschrank = kleiderschrank;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getBezeichnung() {
-        return bezeichnung;
-    }
-
-    public void setBezeichnung(String bezeichnung) {
-        this.bezeichnung = bezeichnung;
-    }
-
-    public String getKategorie() {
+    public Kategorie getKategorie() {
         return kategorie;
     }
 
-    public void setKategorie(String kategorie) {
+    public void setKategorie(Kategorie kategorie) {
         this.kategorie = kategorie;
     }
 
-    public Uri getImage() { return image; }
+    public Kleiderschrank getKleiderschrank() {
+        return kleiderschrank;
+    }
 
-    public void setImage(Uri image) { this.image = image; }
+    public void setKleiderschrank(Kleiderschrank kleiderschrank) {
+        this.kleiderschrank = kleiderschrank;
+    }
+
+    public Uri getImage() {
+        return image;
+    }
+
+    public void setImage(Uri image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Klamotte{" +
+                "id=" + id +
+                ", kategorie=" + kategorie +
+                ", kleiderschrank=" + kleiderschrank +
+                ", image=" + image +
+                '}';
+    }
+
 }

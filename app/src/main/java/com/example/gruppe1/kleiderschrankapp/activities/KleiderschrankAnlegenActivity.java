@@ -1,16 +1,14 @@
 package com.example.gruppe1.kleiderschrankapp.activities;
 
 import com.example.gruppe1.kleiderschrankapp.R;
-import com.example.gruppe1.kleiderschrankapp.dao.KleiderschrankDBHelper;
+import com.example.gruppe1.kleiderschrankapp.dao.DBHelper;
 import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,7 +32,7 @@ public class KleiderschrankAnlegenActivity extends AppCompatActivity {
         Kleiderschrank kleiderschrank = new Kleiderschrank();
         kleiderschrank.setBezeichnung(getStringValue(R.id.bezeichnungEditText));
 
-        KleiderschrankDBHelper dbHelper = new KleiderschrankDBHelper(this, null, null, 6);
+        DBHelper dbHelper = DBHelper.getInstance(KleiderschrankAnlegenActivity.this);
         dbHelper.insertKleiderschrank(kleiderschrank);
         CharSequence text = dbHelper.databaseToString();
 

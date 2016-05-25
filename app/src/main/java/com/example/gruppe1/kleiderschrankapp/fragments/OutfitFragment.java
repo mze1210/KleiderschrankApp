@@ -9,14 +9,7 @@ import android.view.ViewGroup;
 import com.example.gruppe1.kleiderschrankapp.R;
 import com.google.android.gms.plus.PlusOneButton;
 
-/**
- * A fragment with a Google +1 button.
- * Activities that contain this fragment must implement the
- * {@link OutfitFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link OutfitFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class OutfitFragment extends Fragment{
 
     public OutfitFragment() {
@@ -32,7 +25,7 @@ public class OutfitFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_kleiderschrank, container, false);
+        return inflater.inflate(R.layout.fragment_outfit, container, false);
     }
 
 }

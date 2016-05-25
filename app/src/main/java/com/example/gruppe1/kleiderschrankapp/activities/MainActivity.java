@@ -2,7 +2,6 @@ package com.example.gruppe1.kleiderschrankapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,10 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.gruppe1.kleiderschrankapp.R;
-import com.example.gruppe1.kleiderschrankapp.fragments.KlamotteFragment;
-import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankButtonFragment;
-import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankFragment;
-import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankList;
+import com.example.gruppe1.kleiderschrankapp.fragments.KlamotteListFragment;
+import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankListFragment;
 import com.example.gruppe1.kleiderschrankapp.fragments.OutfitFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void KleiderschrankAnlegen(View view) {
+    public void anlegen(View view) {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         int currentId = viewPager.getCurrentItem();
 
@@ -72,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new KleiderschrankFragment(), "Kleiderschrank");
-        adapter.addFragment(new KlamotteFragment(), "Klamotten");
+        adapter.addFragment(new KleiderschrankListFragment(), "Kleiderschrank");
+        adapter.addFragment(new KlamotteListFragment(), "Klamotten");
         adapter.addFragment(new OutfitFragment(), "Outfits");
         viewPager.setAdapter(adapter);
 

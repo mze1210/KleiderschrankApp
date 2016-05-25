@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -17,9 +18,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.gruppe1.kleiderschrankapp.R;
+import com.example.gruppe1.kleiderschrankapp.dao.DBHelper;
+import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema;
 import com.example.gruppe1.kleiderschrankapp.model.Klamotte;
 
 import java.io.File;
@@ -45,11 +50,34 @@ public class KlamotteAnlegenActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CHOOSE = 2;
 
     private Klamotte klamotte = new Klamotte();
+    private SimpleCursorAdapter kategorieAdapter;
+    private SimpleCursorAdapter kleiderschrankAdapter;
+    private Spinner kategorieSpinner;
+    private Spinner kleiderschrankSpinner;
+//    private DBHelper dbhelper = DBHelper.getInstance(KlamotteAnlegenActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_klamotte_anlegen);
+
+        //Adapter an Kategorie Spinner
+        String[] fromColumnsKategorie = {DatabaseSchema.KategorieEntry.COLUMN_NAME_BEZEICHNUNG};
+        int[] toViewsKategorie = {android.R.id.text1};
+        Cursor kategorieCursor = DBHelper.getInstance(KlamotteAnlegenActivity.this).findAllKategorie();
+        kategorieAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, kategorieCursor, fromColumnsKategorie, toViewsKategorie, 0);
+        kategorieAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        kategorieSpinner = (Spinner) findViewById(R.id.kategorieSpinner);
+        kategorieSpinner.setAdapter(kategorieAdapter);
+
+        //Adapter an Kleiderschrank Spinner
+        String[] fromColumnsKleiderschrank = {DatabaseSchema.KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG};
+        int[] toViewsKleiderschrank = {android.R.id.text1};
+        Cursor kleiderschrankCursor = DBHelper.getInstance(KlamotteAnlegenActivity.this).findAllKleiderschrank();
+        kleiderschrankAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_dropdown_item, kleiderschrankCursor, fromColumnsKleiderschrank, toViewsKleiderschrank, 0);
+        kleiderschrankAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        kleiderschrankSpinner = (Spinner) findViewById(R.id.kleiderschrankSpinner);
+        kleiderschrankSpinner.setAdapter(kleiderschrankAdapter);
 
         Button cameraButton = (Button) findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +92,7 @@ public class KlamotteAnlegenActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Starts Intent to choose existing image from gallery
@@ -162,13 +191,18 @@ public class KlamotteAnlegenActivity extends AppCompatActivity {
         }
         if (view.getId() == R.id.saveButton) {
             //TODO
-//            saveKlamotte();
+            saveKlamotte();
             Intent listIntent = new Intent(this, MainActivity.class);
             startActivity(listIntent);
             text = "Abgespeichert";
         }
         toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    private void saveKlamotte() {
+        Klamotte klamotte = new Klamotte();
+
     }
 
     /**
