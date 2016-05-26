@@ -1,22 +1,26 @@
 package com.example.gruppe1.kleiderschrankapp.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.gruppe1.kleiderschrankapp.R;
-import com.example.gruppe1.kleiderschrankapp.model.Kategorie;
-import com.example.gruppe1.kleiderschrankapp.model.Klamotte;
-import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
-import com.google.android.gms.plus.PlusOneButton;
+import com.example.gruppe1.kleiderschrankapp.dao.DBHelper;
+import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema;
 
 
 public class KlamotteFragment extends Fragment {
+
+    private CustomAdapter adapter;
+    private ListView klamotteListView;
+    private Cursor klamotteCursor;
 
     public KlamotteFragment() {
         // Required empty public constructor
@@ -29,7 +33,23 @@ public class KlamotteFragment extends Fragment {
         return view;
     }
 
-    private void initView(View view) {
-
+    public void initView(View view){
+        klamotteCursor = DBHelper.getInstance(getContext()).findAllKlamotte();
+        adapter = new CustomAdapter(getContext(), klamotteCursor);
+        klamotteListView = (ListView) view.findViewById(R.id.klamotteListView);
+        klamotteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * OnItemClickListener for item in ListView
+             * @param parent where the click happened
+             * @param view clicked View
+             * @param position clicked position
+             * @param id row id of the clicked item
+             */
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(),"ToDo", Toast.LENGTH_SHORT).show();
+            }
+        });
+        klamotteListView.setAdapter(adapter);
     }
 }

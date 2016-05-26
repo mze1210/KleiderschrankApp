@@ -59,37 +59,9 @@ public class KleiderschrankFragment extends Fragment {
              */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),"text", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(),"text", Toast.LENGTH_SHORT).show();
             }
         });
         kleiderschrankList.setAdapter(adapter);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-//
-//        Kleiderschrank k1 = new Kleiderschrank();
-//        Kleiderschrank k2 = new Kleiderschrank();
-//        Kleiderschrank k3 = new Kleiderschrank();
-//        Kleiderschrank k4 = new Kleiderschrank();
-//        Kleiderschrank k5 = new Kleiderschrank();
-//        Kleiderschrank k6 = new Kleiderschrank();
-//
-//        k1.setBezeichnung("Kleiderschrank 1");
-//        k2.setBezeichnung("Kleiderschrank 2");
-//        k3.setBezeichnung("Kleiderschrank 3");
-//        k4.setBezeichnung("Kleiderschrank 4");
-//        k5.setBezeichnung("Kleiderschrank 5");
-//        k6.setBezeichnung("Kleiderschrank 6");
-//
-//        Kleiderschrank[] values = new Kleiderschrank[] {k1, k2, k3, k4, k5, k6};
-//
-//
-//        ArrayAdapter<Kleiderschrank> adapter = new ArrayAdapter<Kleiderschrank>(getActivity(), android.R.layout.simple_list_item_1, values);
-//
-//        setListAdapter(adapter);
-
-
     }
 }
