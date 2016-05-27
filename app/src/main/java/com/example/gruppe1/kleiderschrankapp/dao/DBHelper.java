@@ -18,6 +18,7 @@ import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema.KategorieEntry;
 import com.example.gruppe1.kleiderschrankapp.model.Kategorie;
 import com.example.gruppe1.kleiderschrankapp.model.Klamotte;
 import com.example.gruppe1.kleiderschrankapp.model.Kleiderschrank;
+import com.example.gruppe1.kleiderschrankapp.util.Constants;
 
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -113,12 +114,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor findAllKlamotteWithKleiderschrankKategorie() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        String query = "SELECT klamotte._id, klamotte.IMAGE_PATH, kleiderschrank.BEZEICHNUNG, kategorie.BEZEICHNUNG" +
+        String query = "SELECT klamotte._id, klamotte.image, kleiderschrank.bezeichnung as " + Constants.KLEIDERSCHRANK_BEZEICHNUNG +
+                ", kategorie.bezeichnung as " + Constants.KATEGORIE_BEZEICHNUNG +
                 " FROM " +
                 " klamotte " +
-                " JOIN klamotte on kleiderschrank._id = klamotte.kleiderschrank_fk "+
+                " JOIN kleiderschrank on kleiderschrank._id = klamotte.kleiderschrank_fk" +
                 " JOIN kategorie on kategorie._id = klamotte.kategorie_fk";
-
 
 
         return sqLiteDatabase.rawQuery(query, null);
