@@ -43,7 +43,7 @@ class CustomAdapter extends CursorAdapter {
         TextView tagsTextView = (TextView) view.findViewById(R.id.tagsTextView);
         ImageView klamotteImageView = (ImageView) view.findViewById(R.id.klamotteImageView);
 
-        String kleiderschrank = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseSchema.KlamotteEntry.COLUMN_NAME_KLEIDERSCHRANK_FK));
+        String kleiderschrank = cursor.getString(cursor.getColumnIndex(DatabaseSchema.KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG));
         kleiderschrankTextView.setText(kleiderschrank);
 
         kategorieTextView.setText(cursor.getString(cursor.getColumnIndex(DatabaseSchema.KlamotteEntry.COLUMN_NAME_KATEGORIE_FK)));

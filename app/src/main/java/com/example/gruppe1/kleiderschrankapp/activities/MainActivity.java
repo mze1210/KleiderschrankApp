@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+
     }
 
     public void anlegen(View view) {
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new KlamotteFragment(), "Klamotten");
         adapter.addFragment(new OutfitFragment(), "Outfits");
         viewPager.setAdapter(adapter);
+
 
 
     }

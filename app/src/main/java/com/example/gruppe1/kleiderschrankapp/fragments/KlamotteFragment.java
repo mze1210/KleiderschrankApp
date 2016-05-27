@@ -34,7 +34,7 @@ public class KlamotteFragment extends Fragment {
     }
 
     public void initView(View view){
-        klamotteCursor = DBHelper.getInstance(getContext()).findAllKlamotte();
+        klamotteCursor = DBHelper.getInstance(getContext()).findAllKlamotteWithKleiderschrankKategorie();
         adapter = new CustomAdapter(getContext(), klamotteCursor);
         klamotteListView = (ListView) view.findViewById(R.id.klamotteListView);
         klamotteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

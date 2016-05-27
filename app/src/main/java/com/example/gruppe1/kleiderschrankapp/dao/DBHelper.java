@@ -11,6 +11,7 @@ import android.net.Uri;
 /**
  * Created by Furkan on 17.05.2016.
  */
+import com.example.gruppe1.kleiderschrankapp.activities.KleiderschrankAnlegenActivity;
 import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema.KleiderschrankEntry;
 import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema.KlamotteEntry;
 import com.example.gruppe1.kleiderschrankapp.dao.DatabaseSchema.KategorieEntry;
@@ -73,6 +74,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return qb.query(getReadableDatabase(), null, null, null, null, null, sortOrder);
     }
 
+    public Kleiderschrank findKleiderschrankById(long id) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(KleiderschrankEntry.TABLE_NAME, null, "id = " + id, null, null, null, null);
+
+        Kleiderschrank kleiderschrank = new Kleiderschrank();
+        kleiderschrank.setId(id);
+        kleiderschrank.setBezeichnung(cursor.getString(cursor.getColumnIndex(KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG)));
+
+        return kleiderschrank;
+    }
+
     public void insertKleiderschrank(Kleiderschrank kleiderschrank) {
         ContentValues values = new ContentValues();
 
@@ -98,6 +110,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return qb.query(getReadableDatabase(), null, null, null, null, null, sortOrder);
     }
 
+
+    public Cursor findAllKlamotteWithKleiderschrankKategorie() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        String query = "SELECT klamotte._id, klamotte.IMAGE_PATH, kleiderschrank.BEZEICHNUNG, kategorie.BEZEICHNUNG" +
+                " FROM " +
+                " klamotte " +
+                " JOIN klamotte on kleiderschrank._id = klamotte.kleiderschrank_fk "+
+                " JOIN kategorie on kategorie._id = klamotte.kategorie_fk";
+
+
+
+        return sqLiteDatabase.rawQuery(query, null);
+    }
+
     public void insertKlamotte(Klamotte klamotte) {
         ContentValues values = new ContentValues();
 
@@ -105,7 +131,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KlamotteEntry.COLUMN_NAME_KLEIDERSCHRANK_FK, klamotte.getKleiderschrank().getId());
 
         Uri image = klamotte.getImage();
-        if(image == null){
+        if (image == null) {
             klamotte.setImage(Uri.parse(""));
         }
         values.put(KlamotteEntry.COLUMN_NAME_IMAGE_PATH, klamotte.getImage().getPath());
