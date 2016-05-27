@@ -1,11 +1,17 @@
 package com.example.gruppe1.kleiderschrankapp.model;
 
-/**
- * Created by Furkan on 24.05.2016.
- */
 public class Kategorie {
     private long id;
     private String bezeichnung;
+
+    public  Kategorie(){
+
+    }
+
+    public Kategorie(long id, String bezeichnung){
+        this.id = id;
+        this.bezeichnung = bezeichnung;
+    }
 
     public long getId() {
         return id;
@@ -22,7 +28,8 @@ public class Kategorie {
     @Override
     public String toString() {
         return "Kategorie{" +
-                "bezeichnung='" + bezeichnung + '\'' +
+                "id=" + id +
+                ", bezeichnung='" + bezeichnung + '\'' +
                 '}';
     }
 }

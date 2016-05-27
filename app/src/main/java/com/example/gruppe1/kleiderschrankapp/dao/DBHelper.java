@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.net.Uri;
 
 /**
  * Created by Furkan on 17.05.2016.
@@ -58,11 +59,6 @@ public class DBHelper extends SQLiteOpenHelper {
         this.ctx = context;
     }
 
-//    public KleiderschrankDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-//        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
-//        this.ctx = ctx;
-//    }
-
     public static DBHelper getInstance(Context ctx) {
         if (instance == null) {
             return new DBHelper(ctx.getApplicationContext());
@@ -107,7 +103,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         values.put(KlamotteEntry.COLUMN_NAME_KATEGORIE_FK, klamotte.getKategorie().getId());
         values.put(KlamotteEntry.COLUMN_NAME_KLEIDERSCHRANK_FK, klamotte.getKleiderschrank().getId());
-        values.put(KlamotteEntry.COLUMN_NAME_IMAGE_PATH, klamotte.getImage().toString());
+
+        Uri image = klamotte.getImage();
+        if(image == null){
+            klamotte.setImage(Uri.parse(""));
+        }
+        values.put(KlamotteEntry.COLUMN_NAME_IMAGE_PATH, klamotte.getImage().getPath());
 
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.insert(KlamotteEntry.TABLE_NAME, null, values);
@@ -165,7 +166,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
-        String query = "SELECT * FROM " + KleiderschrankEntry.TABLE_NAME + " WHERE 1";
+        String query = "SELECT * FROM " + KlamotteEntry.TABLE_NAME + " WHERE 1";
 
         //Cursor point to a location of your results
         Cursor c = sqLiteDatabase.rawQuery(query, null);
@@ -174,8 +175,13 @@ public class DBHelper extends SQLiteOpenHelper {
         c.moveToFirst();
 
         while (!c.isAfterLast()) {
-            if (c.getString(c.getColumnIndex(KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG)) != null) {
-                dbString += c.getString(c.getColumnIndex(KleiderschrankEntry.COLUMN_NAME_BEZEICHNUNG));
+            if (c.getString(c.getColumnIndex(KlamotteEntry.COLUMN_NAME_ID)) != null) {
+                dbString += c.getString(c.getColumnIndex(KlamotteEntry.COLUMN_NAME_ID));
+                dbString += c.getString(c.getColumnIndex(KlamotteEntry.COLUMN_NAME_KLEIDERSCHRANK_FK));
+                dbString += c.getString(c.getColumnIndex(KlamotteEntry.COLUMN_NAME_KATEGORIE_FK));
+                dbString += c.getString(c.getColumnIndex(KlamotteEntry.COLUMN_NAME_IMAGE_PATH));
+
+
                 dbString += "\n";
             }
             c.moveToNext();

@@ -35,9 +35,6 @@ public class KleiderschrankAnlegenActivity extends AppCompatActivity {
         DBHelper dbHelper = DBHelper.getInstance(KleiderschrankAnlegenActivity.this);
         dbHelper.insertKleiderschrank(kleiderschrank);
         CharSequence text = dbHelper.databaseToString();
-
-        Toast.makeText(getBaseContext(), text, Toast.LENGTH_LONG).show();
-
     }
 
 

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.gruppe1.kleiderschrankapp.R;
-import com.example.gruppe1.kleiderschrankapp.fragments.KlamotteListFragment;
-import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankListFragment;
+import com.example.gruppe1.kleiderschrankapp.fragments.KlamotteFragment;
+import com.example.gruppe1.kleiderschrankapp.fragments.KleiderschrankFragment;
 import com.example.gruppe1.kleiderschrankapp.fragments.OutfitFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new KleiderschrankListFragment(), "Kleiderschrank");
-        adapter.addFragment(new KlamotteListFragment(), "Klamotten");
+        adapter.addFragment(new KleiderschrankFragment(), "Kleiderschrank");
+        adapter.addFragment(new KlamotteFragment(), "Klamotten");
         adapter.addFragment(new OutfitFragment(), "Outfits");
         viewPager.setAdapter(adapter);
 

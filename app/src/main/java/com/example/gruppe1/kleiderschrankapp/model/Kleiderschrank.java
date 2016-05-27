@@ -10,9 +10,13 @@ public class Kleiderschrank {
     private String bezeichnung;
 
 
-
     public Kleiderschrank() {
 
+    }
+
+    public Kleiderschrank(long id, String bezeichnung) {
+        this.id = id;
+        this.bezeichnung = bezeichnung;
     }
 
     public void setId(long id) {
